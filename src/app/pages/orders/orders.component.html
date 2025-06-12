@@ -1,0 +1,118 @@
+<div class="orders-container">
+  <!-- Header -->
+  <div class="page-header">
+    <h1>Orders</h1>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="summary-cards">
+    <div class="card">
+      <div class="icon">📦</div>
+      <div>
+        <h4>Total</h4>
+        <p class="count">124 Orders</p>
+        <p class="note">All time</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="icon">⏳</div>
+      <div>
+        <h4>Pending</h4>
+        <p class="count">7 Orders</p>
+        <p class="note">Awaiting fulfillment</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="icon">✅</div>
+      <div>
+        <h4>Completed</h4>
+        <p class="count">110 Orders</p>
+        <p class="note">Delivered</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order List -->
+  <div class="order-list-section">
+    <div class="tabs">
+      <button class="active">All</button>
+      <button>Pending</button>
+      <button>Shipped</button>
+      <button>Completed</button>
+      <button>Cancelled</button>
+    </div>
+
+    <table class="order-table">
+      <thead>
+        <tr>
+          <th>Order</th>
+          <th>Customer</th>
+          <th>Date</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>#1024</td>
+          <td>Jamie Lee</td>
+          <td>2024-06-15</td>
+          <td>$320.00</td>
+          <td>Pending</td>
+          <td><button>👁️</button></td>
+        </tr>
+        <tr>
+          <td>#1023</td>
+          <td>Morgan Yu</td>
+          <td>2024-06-14</td>
+          <td>$150.00</td>
+          <td>Completed</td>
+          <td><button>👁️</button></td>
+        </tr>
+        <tr>
+          <td>#1022</td>
+          <td>Taylor Kim</td>
+          <td>2024-06-13</td>
+          <td>$89.00</td>
+          <td>Shipped</td>
+          <td><button>👁️</button></td>
+        </tr>
+        <tr>
+          <td>#1021</td>
+          <td>Jordan Smith</td>
+          <td>2024-06-12</td>
+          <td>$210.00</td>
+          <td>Cancelled</td>
+          <td><button>👁️</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Create Order Form -->
+  <div class="create-order-section">
+    <h3>Create Order</h3>
+    <form>
+      <div class="form-group">
+        <label>Customer</label>
+        <input type="text" placeholder="Enter customer name" />
+      </div>
+      <div class="form-group">
+        <label>Order Amount</label>
+        <input type="number" placeholder="Enter amount" />
+      </div>
+      <div class="form-group">
+        <label>Status</label>
+        <select>
+          <option value="">Select status</option>
+          <option value="pending">Pending</option>
+          <option value="shipped">Shipped</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-primary">Add Order</button>
+    </form>
+  </div>
+</div>

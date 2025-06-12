@@ -1,0 +1,34 @@
+<div class="login-container">
+  <div class="login-left">
+    <div class="logo">BizInventory</div>
+    <p class="subtitle">Manage your inventory efficiently with ease.</p>
+  </div>
+
+  <div class="login-right">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <h2>Sign in to your account</h2>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input formControlName="username" type="text" placeholder="Enter username" />
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input formControlName="password" type="password" placeholder="Enter password" />
+      </div>
+
+      <div class="form-options">
+        <label>
+          <input type="checkbox" /> Remember me
+        </label>
+        <a class="forgot-password">Forgot password?</a>
+      </div>
+
+      <button type="submit">Sign in</button>
+      <div class="form-note">
+        Don't have an account? <a routerLink="/signup">Sign up</a>
+      </div>
+    </form>
+  </div>
+</div>

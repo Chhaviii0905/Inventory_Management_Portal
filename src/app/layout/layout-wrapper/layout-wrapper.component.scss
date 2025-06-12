@@ -1,0 +1,11 @@
+.layout {
+  display: flex;
+}
+
+.content {
+  margin-left: 220px;
+  padding: 0px 20px 20px 20px;
+  width: calc(100% - 220px);
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}

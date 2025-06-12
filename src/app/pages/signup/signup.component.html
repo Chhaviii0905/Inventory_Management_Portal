@@ -1,0 +1,37 @@
+<div class="signup-container">
+  <div class="signup-left">
+    <div class="logo">BizInventory</div>
+    <p class="subtitle">Join us and start managing your inventory smarter.</p>
+  </div>
+
+  <div class="signup-right">
+    <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+      <h2>Create an account</h2>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input formControlName="username" type="text" placeholder="Enter username" />
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input formControlName="password" type="password" placeholder="Enter password" />
+      </div>
+
+      <div class="form-group">
+        <label>Role</label>
+        <select formControlName="roleId">
+          <option [value]="1">Admin</option>
+          <option [value]="2">Manager</option>
+          <option [value]="3">Staff</option>
+        </select>
+      </div>
+
+      <button type="submit">Sign up</button>
+
+      <p class="form-note">
+        Already have an account? <a routerLink="/signup">Sign in</a>
+      </p>
+    </form>
+  </div>
+</div>

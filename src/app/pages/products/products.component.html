@@ -1,0 +1,51 @@
+<div class="products-container">
+  <div class="header">
+    <h2>Product List</h2>
+    <div class="tabs">
+      <button class="active">All</button>
+    </div>
+  </div>
+
+  <div class="search-add">
+    <div class="search-bar">
+      <input type="text" placeholder="Search by name or SKU" />
+      <span class="search-icon">🔍</span>
+    </div>
+    <button class="btn-primary" (click)="openAddProductModal()">Add Product</button>
+  </div>
+
+  <div class="inventory-list">
+    <h3>Inventory</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>{{ product.name }}</td>
+          <td>{{ product.price | currency }}</td>
+          <td>{{ product.quantity }}</td>
+          <td>
+            <button (click)="openEditProductModal(product)">✏️</button>
+            <button (click)="deleteProduct(product.productId)">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Generic Modal -->
+  <app-modal
+    *ngIf="showModal"
+    [title]="modalTitle"
+    [fields]="modalFields"
+    [submitLabel]="modalSubmitLabel"
+    (submit)="handleModalSubmit($event)"
+    (close)="handleModalClose()"
+  ></app-modal>
+</div>

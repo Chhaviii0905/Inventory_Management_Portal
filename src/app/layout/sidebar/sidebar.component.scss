@@ -1,0 +1,39 @@
+.sidebar {
+  width: 220px;
+  background-color: #ffffff;
+  border-right: 1px solid #e0e0e0;
+  height: 100vh;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  .logo {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      padding: 10px 0;
+      color: #333;
+      cursor: pointer;
+
+      &.active {
+        font-weight: bold;
+        color: #007bff;
+      }
+
+      &.admin-label {
+        font-size: 0.85rem;
+        color: #999;
+        margin-top: 1.5rem;
+        text-transform: uppercase;
+      }
+    }
+  }
+}

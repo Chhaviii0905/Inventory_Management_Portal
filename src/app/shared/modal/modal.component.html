@@ -1,0 +1,25 @@
+<div class="modal-backdrop">
+  <div class="modal">
+    <h2>{{ title }}</h2>
+    <form>
+      <ng-container *ngFor="let field of fields">
+        <label>{{ field.label }}</label>
+        <input *ngIf="field.type !== 'select'"
+               [type]="field.type"
+               [(ngModel)]="formData[field.name]"
+               [name]="field.name" required />
+
+        <select *ngIf="field.type === 'select'"
+                [(ngModel)]="formData[field.name]"
+                [name]="field.name" required>
+          <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
+        </select>
+      </ng-container>
+
+      <div class="modal-actions">
+        <button type="submit" (click)="handleSubmit()">{{ submitLabel }}</button>
+        <button type="button" class="cancel" (click)="handleClose()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,5 @@
+<div class="breadcrumb-wrapper">
+  <span *ngFor="let crumb of breadcrumbs; let i = index">
+  <span class="crumb">{{ crumb }}</span>
+  <span *ngIf="i < breadcrumbs.length - 1"> › </span>
+</span>
