@@ -1,26 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { LogsService } from '../../services/logs.service';
+import { ActivityLog } from '../../model';
 
 @Component({
   selector: 'app-activity-logs',
   templateUrl: './activity-logs.component.html',
-  styleUrl: './activity-logs.component.scss'
+  styleUrls: ['./activity-logs.component.scss']
 })
-export class ActivityLogsComponent {
+export class ActivityLogsComponent implements OnInit {
   filter: string = 'all';
+  logs: ActivityLog[] = [];
+  todayCount: number = 0;
 
-  logs = [
-    { date: '2024-06-15 10:12', activity: 'Order #1024 created', user: 'Jamie Lee', type: 'Info' },
-    { date: '2024-06-15 09:45', activity: 'Payment failed', user: 'Morgan Yu', type: 'Error' },
-    { date: '2024-06-15 08:30', activity: 'User login', user: 'Taylor Kim', type: 'User' },
-    { date: '2024-06-15 08:50', activity: 'Settings updated', user: 'Jordan Smith', type: 'System' }
-  ];
+  constructor(private logsService: LogsService) { }
+
+  ngOnInit() {
+    this.logsService.getLogs().subscribe(data => {
+      this.logs = data;
+
+      const today = new Date().toDateString();
+      this.todayCount = this.logs.filter(log => 
+        new Date(log.timestamp).toDateString() === today
+      ).length;
+    });
+  }
 
   get filteredLogs() {
     if (this.filter === 'all') return this.logs;
-    return this.logs.filter(log => log.type.toLowerCase() === this.filter);
+    return this.logs.filter(log => log.action.toLowerCase() === this.filter);
   }
 
   setFilter(type: string) {
     this.filter = type;
+  }
+
+  private mapType(action: string): string {
+    if (action.toLowerCase().includes('error')) return 'Error';
+    if (action.toLowerCase().includes('login')) return 'User';
+    if (action.toLowerCase().includes('updated') || action.toLowerCase().includes('system')) return 'System';
+    return 'Info';
   }
 }

@@ -28,10 +28,10 @@
       <tbody>
         <tr *ngFor="let product of products">
           <td>{{ product.name }}</td>
-          <td>{{ product.price | currency }}</td>
+          <td>{{ product.price | currency:'INR':'symbol':'1.2-2' }}</td>
           <td>{{ product.quantity }}</td>
           <td>
-            <button (click)="openEditProductModal(product)">✏️</button>
+            <button (click)="openEditProductModal(product)" style="margin-right: 8px;">✏️</button>
             <button (click)="deleteProduct(product.productId)">🗑️</button>
           </td>
         </tr>

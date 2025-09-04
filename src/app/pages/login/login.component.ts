@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
-      username: ['', Validators.required],  // use username here
+      username: ['', Validators.required],
       password: ['', Validators.required],
     });
   }
@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/dashboard']); // or desired route
         },
         error: (err) => {
-          alert('Login failed: Invalid credentials');
+          Swal.fire('', 'Login failed: Invalid credentials', 'error');
         }
       });
     }

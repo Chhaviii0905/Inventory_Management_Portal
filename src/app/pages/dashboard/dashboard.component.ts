@@ -1,12 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {
-  ApexAxisChartSeries,
-  ApexChart,
-  ApexXAxis,
-  ApexTitleSubtitle,
-  ApexDataLabels
-} from 'ngx-apexcharts';
-import { ProductService } from '../../services/products.service';// adjust path if needed
+import { ApexAxisChartSeries, ApexChart, ApexXAxis, ApexTitleSubtitle, ApexDataLabels } from 'ngx-apexcharts';
+import { ProductService } from '../../services/products.service';
+import { LogsService } from '../../services/logs.service';
+import { ActivityLog } from '../../model';
 
 @Component({
   selector: 'app-dashboard',
@@ -28,13 +24,15 @@ export class DashboardComponent implements OnInit {
   public dataLabels: ApexDataLabels = {
     enabled: true
   };
+  logs: ActivityLog[] = [];
+  filter: string = 'all';
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private logsService: LogsService) { }
 
   ngOnInit(): void {
     this.productService.getAll().subscribe((products: any) => {
-      const productNames = products.data.map((p: { name: any; }) => p.name);      // Assuming `name` field exists
-      const stockValues = products.data.map((p: { quantity: any; }) => p.quantity); // Assuming `stockCount` field exists
+      const productNames = products.data.map((p: { name: any; }) => p.name); 
+      const stockValues = products.data.map((p: { quantity: any; }) => p.quantity);
 
       this.chartXAxis.categories = productNames;
       this.chartSeries = [
@@ -44,5 +42,18 @@ export class DashboardComponent implements OnInit {
         }
       ];
     });
+
+    this.logsService.getLogs().subscribe(data => {
+      this.logs = data;
+    });
+  }
+
+  get filteredLogs() {
+    if (this.filter === 'all') return this.logs;
+    return this.logs.filter(log => log.action.toLowerCase() === this.filter);
+  }
+
+  setFilter(type: string) {
+    this.filter = type;
   }
 }

@@ -5,7 +5,7 @@
 
   .login-left {
     flex: 1;
-    background: linear-gradient(to right, #007bff, #0056b3);
+    background: linear-gradient(to right, #035fc1, #0056b3);
     color: white;
     padding: 60px 40px;
     display: flex;
@@ -13,9 +13,9 @@
     justify-content: center;
 
     .logo {
-      font-size: 2rem;
-      font-weight: bold;
       margin-bottom: 1rem;
+      height: 550px;
+      width: 580px;
     }
 
     .subtitle {
@@ -63,7 +63,7 @@
         margin-bottom: 1.5rem;
 
         .forgot-password {
-          color: #007bff;
+          color: #035fc1;
           font-size: 0.9rem;
           cursor: pointer;
         }
@@ -72,7 +72,7 @@
       button {
         width: 100%;
         padding: 12px;
-        background-color: #007bff;
+        background-color: #035fc1;
         border: none;
         color: white;
         font-size: 1rem;
@@ -93,7 +93,7 @@
   font-size: 0.95rem;
 
   a {
-    color: #007bff;
+    color: #035fc1;
     text-decoration: none;
 
     &:hover {

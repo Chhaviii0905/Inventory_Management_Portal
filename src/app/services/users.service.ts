@@ -3,17 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { EditUser, NewUser, RawUser, User } from '../model';
 import { environment } from '../../environment';
+import { API_ENDPOINTS } from '../api-endpoints';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = `${environment.apiUrl}/User`;
 
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<User[]> {
-    return this.http.get<{data:RawUser[]}>(this.apiUrl).pipe(
+    return this.http.get<{data:RawUser[]}>(API_ENDPOINTS.users).pipe(
       map(response =>
         response.data.map((user) => ({
           id: user.userId,
@@ -26,16 +26,16 @@ export class UserService {
   }
 
   createUser(user: NewUser): Observable<RawUser> {
-    return this.http.post<{data: RawUser}>(this.apiUrl, user).pipe(
+    return this.http.post<{data: RawUser}>(API_ENDPOINTS.createUser, user).pipe(
       map(response => response.data));
   }
 
-  updateUser(id: number, user: EditUser): Observable<void> {
-    return this.http.put<void>(`${this.apiUrl}/${id}`, user);
+  updateUser(id: number | string, user: EditUser): Observable<void> {
+    return this.http.put<void>(API_ENDPOINTS.updateUser(id), user);
   }
 
   deleteUser(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiUrl}/${id}`);
+    return this.http.delete<void>(API_ENDPOINTS.deleteUser(id));
   }
 
   private mapRole(roleId: number): 'Admin' | 'Manager' | 'Staff' {

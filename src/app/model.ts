@@ -23,3 +23,12 @@ export interface NewUser{
   password: string;
   roleId: number;
 }
+
+export interface ActivityLog {
+  id: string;
+  action: string;
+  performedBy: string;
+  entity: string;
+  entityId: string;
+  timestamp: string;
+}

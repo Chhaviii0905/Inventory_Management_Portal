@@ -3,15 +3,17 @@
   background-color: #ffffff;
   border-right: 1px solid #e0e0e0;
   height: 100vh;
-  padding: 20px;
+  padding: 10px;
   position: fixed;
   top: 0;
   left: 0;
 
-  .logo {
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+  img {
+    height: 100px;
+  }
+
+  nav {
+    margin-left: 10px;
   }
 
   ul {
@@ -23,9 +25,15 @@
       color: #333;
       cursor: pointer;
 
+      .icon {
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+      }
+
       &.active {
         font-weight: bold;
-        color: #007bff;
+        color: #035fc1;
       }
 
       &.admin-label {

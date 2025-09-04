@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/products.service';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-products',
@@ -62,14 +64,12 @@ export class ProductsComponent implements OnInit {
     if (!this.isApiCalled && this.isEditing && this.editingProductId !== null) {
       const updateData = { ...formData, productId: this.editingProductId };
       this.productService.update(updateData).subscribe(res => {
-        alert(res.message);
         this.loadProducts();
         this.showModal = false;
       });
       this.isApiCalled = true;
     } else if(!this.isApiCalled) {
       this.productService.create(formData).subscribe(res => {
-        alert(res.message);
         this.loadProducts();
         this.showModal = false;
       });
@@ -82,11 +82,19 @@ export class ProductsComponent implements OnInit {
   }
 
   deleteProduct(id: number) {
-    if (confirm('Are you sure?')) {
-      this.productService.delete(id).subscribe(res => {
-        alert(res.message);
-        this.loadProducts();
-      });
-    }
+    Swal.fire({
+      title: 'Are you sure you want to delete this item?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete',
+      confirmButtonColor: '#035fc1',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+          this.productService.delete(id).subscribe(res => {
+          this.loadProducts();
+        });
+      }
+    });
   }
 }

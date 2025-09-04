@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-signup',
@@ -17,7 +18,7 @@ export class SignupComponent implements OnInit {
     this.signupForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required],
-      roleId: [2] // default role: Manager or User
+      roleId: [2]
     });
   }
 
@@ -25,10 +26,12 @@ export class SignupComponent implements OnInit {
     if (this.signupForm.valid) {
       this.auth.register(this.signupForm.value).subscribe({
         next: () => {
-          alert('Account created! You can now log in.');
+          Swal.fire('', 'Account created! You can login now', 'success');
           this.router.navigate(['/login']);
         },
-        error: () => alert('Signup failed. Try again.')
+        error: () => {
+          Swal.fire('', 'Signup failed. Try again', 'error');
+        }
       });
     }
   }

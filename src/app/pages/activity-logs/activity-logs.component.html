@@ -6,7 +6,7 @@
       <div class="card-icon">📅</div>
       <div>
         <strong>Today</strong>
-        <p>34 Events<br /><small>System activity</small></p>
+        <p>{{ todayCount}} Events<br /></p>
       </div>
     </div>
     <div class="card">
@@ -40,6 +40,7 @@
       <thead>
         <tr>
           <th>Date</th>
+          <th>Time</th>
           <th>Activity</th>
           <th>User</th>
           <th>Type</th>
@@ -48,14 +49,15 @@
       </thead>
       <tbody>
         <tr *ngFor="let log of filteredLogs">
-          <td>{{ log.date }}</td>
-          <td>{{ log.activity }}</td>
-          <td>{{ log.user }}</td>
-          <td>{{ log.type }}</td>
+          <td>{{ log.timestamp | date:'dd/MM/yyyy' }}</td>
+          <td>{{ log.timestamp | date: 'hh:mm:ss a' }}</td>
+          <td>{{ log.action }}</td>
+          <td>{{ log.performedBy }}</td>
+          <td>{{ log.entity }}</td>
           <td><span class="eye-icon">👁️</span></td>
         </tr>
       </tbody>
+
     </table>
   </div>
 </div>
-

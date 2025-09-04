@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/users.service';
 import { User } from '../../model';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-users',
@@ -33,7 +34,7 @@ export class UsersComponent implements OnInit {
   }
 
   openCreateModal() {
-    this.resetModal(); // ← Important: Reset state
+    this.resetModal();
     this.modalTitle = 'Create User';
     this.modalSubmitLabel = 'Create';
     this.isEditing = false;
@@ -90,12 +91,21 @@ export class UsersComponent implements OnInit {
   }
 
   deleteUser(id: number): void {
-    if (confirm('Are you sure you want to delete this user?')) {
-      this.userService.deleteUser(id).subscribe(() => {
-        this.users = this.users.filter(u => u.id !== id);
-        this.totalActiveUsers = this.users.length;
-      });
-    }
+    Swal.fire({
+      title: 'Are you sure you want to delete this user?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete',
+      confirmButtonColor: '#035fc1',
+      cancelButtonText: 'Cancel'
+    }).then((result) => {
+        if (result.isConfirmed) {
+          this.userService.deleteUser(id).subscribe(() => {
+          this.users = this.users.filter(u => u.id !== id);
+          this.totalActiveUsers = this.users.length;
+        });
+      }
+    });
   }
 
   getRoleId(roleName: string): number {
@@ -117,8 +127,8 @@ export class UsersComponent implements OnInit {
   }
 
   resetModal() {
-    this.showModal = false;        // Triggers *ngIf removal
-    this.userFields = [];          // Clears old values
-    this.editingUserId = null;     // Reset edit ID
+    this.showModal = false;
+    this.userFields = [];
+    this.editingUserId = null;
   }
 }

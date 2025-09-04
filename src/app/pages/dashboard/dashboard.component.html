@@ -30,11 +30,7 @@
 
   <!-- Stock Level Chart -->
   <div class="chart-section">
-    <apx-chart 
-      [series]="chartSeries"
-      [chart]="chartDetails"
-      [xaxis]="chartXAxis"
-      [title]="chartTitle"
+    <apx-chart [series]="chartSeries" [chart]="chartDetails" [xaxis]="chartXAxis" [title]="chartTitle"
       [dataLabels]="dataLabels">
     </apx-chart>
   </div>
@@ -78,18 +74,15 @@
   <div class="activity-log">
     <h3>Activity Log</h3>
     <ul>
-      <li>
-        <span class="log-text">Stock updated <strong>Shirts: 120 → 110</strong></span>
-        <span class="log-meta">By: Alex Morgan · 2 min ago</span>
-      </li>
-      <li>
-        <span class="log-text">Order shipped <strong>Order #1022</strong></span>
-        <span class="log-meta">By: Jamie Lee · 10 min ago</span>
-      </li>
-      <li>
-        <span class="log-text">Product added <strong>New: Gloves</strong></span>
-        <span class="log-meta">By: Alex Morgan · 30 min ago</span>
+      <li *ngFor="let log of filteredLogs">
+        <span class="log-text">
+          {{ log.action }}
+        </span>
+        <span class="log-meta">
+          By: {{ log.performedBy }} · {{ log.timestamp | date:'dd/MM/yyyy hh:mm a' }}
+        </span>
       </li>
     </ul>
   </div>
+
 </div>

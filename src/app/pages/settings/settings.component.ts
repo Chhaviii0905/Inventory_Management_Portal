@@ -9,9 +9,9 @@ export class SettingsComponent {
   activeTab: string = 'general';
 
   settings = {
-    companyName: 'BizInventory',
-    supportEmail: 'support@bizinventory.com',
-    defaultCurrency: 'USD'
+    companyName: 'StorEase',
+    supportEmail: 'support@storease.com',
+    defaultCurrency: 'Rupee'
   };
 
   setTab(tabName: string) {

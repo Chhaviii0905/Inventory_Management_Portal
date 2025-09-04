@@ -1,9 +1,17 @@
-export const API_BASE_URL = 'http://localhost:5120/api';
+import { environment } from "../environment";
 
 export const API_ENDPOINTS = {
-  products: `${API_BASE_URL}/Product`,
-  productById: (id: number | string) => `${API_BASE_URL}/Product/${id}`,
-  updateProduct: `${API_BASE_URL}/Product`,
-  deleteProduct: (id: number | string) => `${API_BASE_URL}/Product/${id}`,
-  updateStock: (id: number | string) => `${API_BASE_URL}/Product/${id}/stock`
+  products: `${environment.apiUrl}/Product`,
+  productById: (id: number | string) => `${environment.apiUrl}/Product/${id}`,
+  updateProduct: `${environment.apiUrl}/Product`,
+  deleteProduct: (id: number | string) => `${environment.apiUrl}/Product/${id}`,
+  updateStock: (id: number | string) => `${environment.apiUrl}/Product/${id}/stock`,
+  userLogin: `${environment.apiUrl}/Auth/login`,
+  userRegister: `${environment.apiUrl}/Auth/signup`,
+  users: `${environment.apiUrl}/User`,
+  userById: (id: number | string) => `${environment.apiUrl}/User/${id}`,
+  updateUser: (id: number | string) => `${environment.apiUrl}/User/${id}`,  
+  createUser: `${environment.apiUrl}/User`,
+  deleteUser: (id: number | string) => `${environment.apiUrl}/User/${id}`,
+  activityLogs: `${environment.apiUrl}/ActivityLog`,
 };

@@ -21,6 +21,7 @@
     "apexcharts": "^4.7.0",
     "ngx-apexcharts": "^0.8.0",
     "rxjs": "~7.8.0",
+    "sweetalert2": "^11.22.4",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
   },

@@ -1,14 +1,42 @@
-<div class="sidebar">
-  <div class="logo">BizInventory</div>
+<div class="sidebar"> 
+  <img src="assets/images/logo2.png" alt="Logo" class="logo" />
   <nav>
     <ul>
-      <li routerLink="/dashboard" routerLinkActive="active">Dashboard</li>
-      <li routerLink="/products" routerLinkActive="active">Products</li>
-      <li routerLink="/orders" routerLinkActive="active">Orders</li>
-      <li routerLink="/logs" routerLinkActive="active">Logs</li>
+      <li routerLink="/dashboard" routerLinkActive="active">
+        <span class="icon">📊</span>
+        Dashboard
+      </li>
+
+      <li routerLink="/products" routerLinkActive="active">
+        <span class="icon">📦</span>
+        Products
+      </li>
+
+      <li routerLink="/orders" routerLinkActive="active">
+        <span class="icon">🛒</span>
+        Orders
+      </li>
+
+      <li routerLink="/logs" routerLinkActive="active">
+        <span class="icon">📜</span>
+        Logs
+      </li>
+
       <li class="admin-label">Admin</li>
-      <li routerLink="/users" routerLinkActive="active">Users</li>
-      <li routerLink="/settings" routerLinkActive="active">Settings</li>
+
+      <li routerLink="/users" routerLinkActive="active">
+        <span class="icon">👥</span>
+        Users
+      </li>
+
+      <li routerLink="/settings" routerLinkActive="active">
+        <span class="icon">⚙️</span>
+        Settings
+      </li>
+      <hr/>
+      <li (click)="logout()">
+        <span class="icon">🚪</span>
+        Logout
     </ul>
   </nav>
 </div>
