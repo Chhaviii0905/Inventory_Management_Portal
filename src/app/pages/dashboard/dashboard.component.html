@@ -13,7 +13,6 @@
       <p class="title">{{ lowStockCount }} Products</p>
       <div class="card-preview" *ngIf="lowStockItems?.length">
         <div *ngFor="let it of lowStockItems.slice(0,3)" class="preview-row">
-          <span class="preview-name">{{ it.name }}</span>
           <span class="preview-qty">Qty: {{ it.quantity }}</span>
         </div>
       </div>
