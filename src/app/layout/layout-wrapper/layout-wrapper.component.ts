@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrl: './layout-wrapper.component.scss'
 })
 export class LayoutWrapperComponent {
-
 }

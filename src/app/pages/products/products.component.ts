@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/products.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-products',
@@ -8,13 +9,15 @@ import { ProductService } from '../../services/products.service';
 })
 export class ProductsComponent implements OnInit {
   products: any[] = [];
-  showModal: boolean = false;
-  modalTitle: string = '';
+  filteredProducts: any[] = [];
+  searchTerm: string = '';
+  showModal = false;
+  modalTitle = '';
   modalFields: any[] = [];
-  modalSubmitLabel: string = '';
-  isEditing: boolean = false;
+  modalSubmitLabel = '';
+  isEditing = false;
   editingProductId: number | null = null;
-  isApiCalled: boolean = false;
+  isApiCalled = false;
 
   constructor(private productService: ProductService) {}
 
@@ -24,8 +27,18 @@ export class ProductsComponent implements OnInit {
 
   loadProducts(): void {
     this.productService.getAll().subscribe(res => {
-      if (res.success) this.products = res.data;
+      if (res.success) {
+        this.products = res.data;
+        this.filteredProducts = [...this.products];
+      }
     });
+  }
+
+  filterProducts(): void {
+    const term = this.searchTerm.trim().toLowerCase();
+    this.filteredProducts = this.products.filter(
+      p => p.name.toLowerCase().includes(term)
+    );
   }
 
   openAddProductModal() {
@@ -61,15 +74,13 @@ export class ProductsComponent implements OnInit {
   handleModalSubmit(formData: any) {
     if (!this.isApiCalled && this.isEditing && this.editingProductId !== null) {
       const updateData = { ...formData, productId: this.editingProductId };
-      this.productService.update(updateData).subscribe(res => {
-        alert(res.message);
+      this.productService.update(updateData).subscribe(() => {
         this.loadProducts();
         this.showModal = false;
       });
       this.isApiCalled = true;
-    } else if(!this.isApiCalled) {
-      this.productService.create(formData).subscribe(res => {
-        alert(res.message);
+    } else if (!this.isApiCalled) {
+      this.productService.create(formData).subscribe(() => {
         this.loadProducts();
         this.showModal = false;
       });
@@ -82,11 +93,19 @@ export class ProductsComponent implements OnInit {
   }
 
   deleteProduct(id: number) {
-    if (confirm('Are you sure?')) {
-      this.productService.delete(id).subscribe(res => {
-        alert(res.message);
-        this.loadProducts();
-      });
-    }
+    Swal.fire({
+      title: 'Are you sure you want to delete this item?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete',
+      confirmButtonColor: '#035fc1',
+      cancelButtonText: 'Cancel'
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.productService.delete(id).subscribe(() => {
+          this.loadProducts();
+        });
+      }
+    });
   }
 }

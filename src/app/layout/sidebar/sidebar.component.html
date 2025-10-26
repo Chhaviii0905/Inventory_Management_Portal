@@ -1,14 +1,54 @@
-<div class="sidebar">
-  <div class="logo">BizInventory</div>
+<!-- Sidebar Toggle (mobile only) -->
+<button class="sidebar-toggle d-md-none" (click)="toggleSidebar()">
+  <i class="fas fa-bars"></i>
+</button>
+
+<!-- Sidebar -->
+<div class="sidebar" [class.open]="sidebarOpen">
+  <div class="logo-container">
+    <img src="assets/images/logo2.png" alt="StorEase Logo" class="logo" style="margin-top: 10px;"/>
+  </div>
+
   <nav>
     <ul>
-      <li routerLink="/dashboard" routerLinkActive="active">Dashboard</li>
-      <li routerLink="/products" routerLinkActive="active">Products</li>
-      <li routerLink="/orders" routerLinkActive="active">Orders</li>
-      <li routerLink="/logs" routerLinkActive="active">Logs</li>
+      <li routerLink="/dashboard" routerLinkActive="active">
+        <i class="fas fa-chart-line"></i>
+        <span>Dashboard</span>
+      </li>
+
+      <li routerLink="/products" routerLinkActive="active">
+        <i class="fas fa-box-open"></i>
+        <span>Products</span>
+      </li>
+
+      <li routerLink="/orders" routerLinkActive="active">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Orders</span>
+      </li>
+
+      <li routerLink="/logs" routerLinkActive="active">
+        <i class="fas fa-file-alt"></i>
+        <span>Logs</span>
+      </li>
+
       <li class="admin-label">Admin</li>
-      <li routerLink="/users" routerLinkActive="active">Users</li>
-      <li routerLink="/settings" routerLinkActive="active">Settings</li>
+
+      <li routerLink="/users" routerLinkActive="active">
+        <i class="fas fa-users"></i>
+        <span>Users</span>
+      </li>
+
+      <li routerLink="/settings" routerLinkActive="active">
+        <i class="fas fa-cog"></i>
+        <span>Settings</span>
+      </li>
+
+      <hr />
+
+      <li (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </li>
     </ul>
   </nav>
 </div>

@@ -8,44 +8,46 @@
 
   <div class="search-add">
     <div class="search-bar">
-      <input type="text" placeholder="Search by name or SKU" />
-      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Search..." [(ngModel)]="searchTerm" (input)="filterProducts()" />
+      <span class="search-icon">
+        <i class="fas fa-search"></i>
+      </span>
     </div>
     <button class="btn-primary" (click)="openAddProductModal()">Add Product</button>
   </div>
 
   <div class="inventory-list">
     <h3>Inventory</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Price</th>
-          <th>Quantity</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let product of products">
-          <td>{{ product.name }}</td>
-          <td>{{ product.price | currency }}</td>
-          <td>{{ product.quantity }}</td>
-          <td>
-            <button (click)="openEditProductModal(product)">✏️</button>
-            <button (click)="deleteProduct(product.productId)">🗑️</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of filteredProducts">
+            <td>{{ product.name }}</td>
+            <td>{{ product.price | currency:'INR':'symbol':'1.2-2' }}</td>
+            <td>{{ product.quantity }}</td>
+            <td class="actions">
+              <button (click)="openEditProductModal(product)"><i class="fas fa-edit"></i></button>
+              <button (click)="deleteProduct(product.productId)"><i class="fas fa-trash"></i></button>
+            </td>
+          </tr>
+          <tr *ngIf="filteredProducts.length === 0 && searchTerm.trim().length > 0">
+            <td class="no-results" colspan="4">
+              No matching items found
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
-  <!-- Generic Modal -->
-  <app-modal
-    *ngIf="showModal"
-    [title]="modalTitle"
-    [fields]="modalFields"
-    [submitLabel]="modalSubmitLabel"
-    (submit)="handleModalSubmit($event)"
-    (close)="handleModalClose()"
-  ></app-modal>
+  <app-modal *ngIf="showModal" [title]="modalTitle" [fields]="modalFields" [submitLabel]="modalSubmitLabel"
+    (submit)="handleModalSubmit($event)" (close)="handleModalClose()"></app-modal>
 </div>

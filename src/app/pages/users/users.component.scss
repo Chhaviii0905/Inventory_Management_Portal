@@ -25,9 +25,10 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.05);
 }
 
-.card-icon {
+.card-icon i{
   font-size: 1.8rem;
   margin-right: 1rem;
+  color: #035fc1;
 }
 
 .user-list-header {
@@ -77,6 +78,8 @@
   gap: 0.5rem;
 }
 
-.icon {
+.icon i{
   cursor: pointer;
+  color: #035fc1;
+  font-size: 1.2rem;
 }

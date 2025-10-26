@@ -3,37 +3,99 @@
   background-color: #ffffff;
   border-right: 1px solid #e0e0e0;
   height: 100vh;
-  padding: 20px;
+  padding: 15px 10px;
   position: fixed;
   top: 0;
   left: 0;
+  transition: transform 0.3s ease;
+  z-index: 100;
 
-  .logo {
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-bottom: 2rem;
+  &.closed {
+    transform: translateX(-100%);
   }
 
-  ul {
-    list-style: none;
-    padding: 0;
+  .logo-container {
+    text-align: left;
 
-    li {
-      padding: 10px 0;
-      color: #333;
-      cursor: pointer;
+    img.logo {
+      height: 100px;
+      width: auto;
+    }
+  }
 
-      &.active {
-        font-weight: bold;
-        color: #007bff;
-      }
+  nav {
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
 
-      &.admin-label {
-        font-size: 0.85rem;
-        color: #999;
-        margin-top: 1.5rem;
-        text-transform: uppercase;
+      li {
+        padding: 10px 12px;
+        display: flex;
+        align-items: center;
+        border-radius: 8px;
+        color: #333;
+        cursor: pointer;
+        transition: background 0.2s ease;
+
+        i {
+          font-size: 1.1rem;
+          margin-right: 10px;
+          color: #035fc1;
+        }
+
+        span {
+          flex: 1;
+        }
+
+        &:hover {
+          background-color: #f5f7fa;
+        }
+
+        &.active {
+          background-color: #e8f0fe;
+          font-weight: 600;
+        }
+
+        &.admin-label {
+          font-size: 0.8rem;
+          color: #999;
+          text-transform: uppercase;
+          margin-top: 20px;
+          cursor: default;
+        }
       }
     }
+  }
+}
+
+/* Sidebar toggle (hidden on desktop) */
+.sidebar-toggle {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: #035fc1;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 5px;
+  z-index: 200;
+  cursor: pointer;
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    box-shadow: 2px 0 6px rgba(0, 0, 0, 0.2);
+
+    &.open {
+      transform: translateX(0);
+    }
+  }
+
+  .sidebar-toggle {
+    display: block;
   }
 }

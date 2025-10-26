@@ -1,25 +1,33 @@
 <div class="modal-backdrop">
   <div class="modal">
     <h2>{{ title }}</h2>
-    <form>
-      <ng-container *ngFor="let field of fields">
-        <label>{{ field.label }}</label>
-        <input *ngIf="field.type !== 'select'"
-               [type]="field.type"
-               [(ngModel)]="formData[field.name]"
-               [name]="field.name" required />
 
-        <select *ngIf="field.type === 'select'"
-                [(ngModel)]="formData[field.name]"
-                [name]="field.name" required>
-          <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
-        </select>
-      </ng-container>
+    <!-- scrollable body -->
+    <div class="modal-body">
+      <form>
+        <ng-container *ngFor="let field of fields">
+          <label>{{ field.label }}</label>
 
-      <div class="modal-actions">
-        <button type="submit" (click)="handleSubmit()">{{ submitLabel }}</button>
-        <button type="button" class="cancel" (click)="handleClose()">Cancel</button>
-      </div>
-    </form>
+          <!-- display-only field -->
+          <div *ngIf="field.type === 'display' || readonly" class="display-field">
+            <pre class="display-pre">{{ formData[field.name] }}</pre>
+          </div>
+
+          <input *ngIf="field.type !== 'select' && field.type !== 'display' && !readonly" [type]="field.type"
+            [(ngModel)]="formData[field.name]" [name]="field.name" required />
+
+          <select *ngIf="field.type === 'select' && !readonly" [(ngModel)]="formData[field.name]" name="{{field.name}}">
+            <option *ngFor="let option of field.options" [value]="option?.value || option">
+              {{ option.label || option }}
+            </option>
+          </select>
+        </ng-container>
+      </form>
+    </div>
+
+    <div class="modal-actions">
+      <button *ngIf="!readonly" type="button" (click)="handleSubmit()">{{ submitLabel }}</button>
+      <button type="button" class="cancel" (click)="handleClose()">Cancel</button>
+    </div>
   </div>
 </div>

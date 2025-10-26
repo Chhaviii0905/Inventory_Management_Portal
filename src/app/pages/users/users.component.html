@@ -4,14 +4,14 @@
   <!-- Summary Cards -->
   <div class="summary-cards">
     <div class="card">
-      <div class="card-icon">👥</div>
+      <div class="card-icon"><i class="fas fa-users"></i></div>
       <div>
         <strong>Total</strong>
         <p>{{ totalActiveUsers }} Users<br /><small>Active in system</small></p>
       </div>
     </div>
     <div class="card">
-      <div class="card-icon">📋</div>
+      <div class="card-icon"><i class="fas fa-user-shield"></i></div>
       <div>
         <strong>Roles</strong>
         <p>3 Types<br /><small>Admin, Manager, Staff</small></p>
@@ -33,19 +33,14 @@
         <p>{{ user.role }} - <span class="active">{{ user.status }}</span></p>
       </div>
       <div class="actions">
-        <span class="icon" (click)="openUpdateModal(user)">✏️</span>
-        <span class="icon" (click)="deleteUser(user.id)">🗑️</span>
+        <span class="icon" (click)="openUpdateModal(user)"><i class="fas fa-edit"></i></span>
+        <span class="icon" (click)="deleteUser(user.id)"><i class="fas fa-trash"></i></span>
       </div>
     </div>
   </div>
 
   <!-- Reusable Modal -->
-  <app-modal
-    *ngIf="showModal"
-    [title]="modalTitle"
-    [fields]="userFields"
-    [submitLabel]="modalSubmitLabel"
-    (submit)="handleModalSubmit($event)"
-    (close)="showModal = false">
+  <app-modal *ngIf="showModal" [title]="modalTitle" [fields]="userFields" [submitLabel]="modalSubmitLabel"
+    (submit)="handleModalSubmit($event)" (close)="showModal = false">
   </app-modal>
 </div>

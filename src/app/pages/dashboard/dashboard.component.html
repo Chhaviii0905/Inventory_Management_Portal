@@ -6,35 +6,36 @@
     <div class="card">
       <h4>Stock</h4>
       <p class="title">Total Products</p>
-      <p class="count">154 Items in inventory</p>
+      <p class="count">{{totalItems}} Items in inventory</p>
     </div>
     <div class="card">
       <h4>Low Stock</h4>
-      <p class="title">7 Products</p>
-      <p class="note">Restock needed soon</p>
-      <button class="btn-blue">View Low Stock</button>
+      <p class="title">{{ lowStockCount }} Products</p>
+      <div class="card-preview" *ngIf="lowStockItems?.length">
+        <div *ngFor="let it of lowStockItems.slice(0,3)" class="preview-row">
+          <span class="preview-name">{{ it.name }}</span>
+          <span class="preview-qty">Qty: {{ it.quantity }}</span>
+        </div>
+      </div>
+      <button class="btn-blue" (click)="openLowStockModal()">View Low Stock</button>
     </div>
     <div class="card">
       <h4>Orders</h4>
-      <p class="title">12 Open Orders</p>
-      <p class="note">3 new today</p>
-      <button class="btn-blue">View Orders</button>
+      <p class="title">{{ pendingOrdersCount }} Open Orders</p>
+      <p class="note">{{ recentOrders?.length }} recent</p>
+      <button class="btn-blue" (click)="openPendingOrdersModal()">View Orders</button>
     </div>
     <div class="card">
       <h4>Activity</h4>
       <p class="title">Recent Logs</p>
       <p class="note">System updated 2m ago</p>
-      <button class="btn-blue">View Logs</button>
+      <button class="btn-blue" (click)="openLogsModal()">View Logs</button>
     </div>
   </div>
 
   <!-- Stock Level Chart -->
   <div class="chart-section">
-    <apx-chart 
-      [series]="chartSeries"
-      [chart]="chartDetails"
-      [xaxis]="chartXAxis"
-      [title]="chartTitle"
+    <apx-chart [series]="chartSeries" [chart]="chartDetails" [xaxis]="chartXAxis" [title]="chartTitle"
       [dataLabels]="dataLabels">
     </apx-chart>
   </div>
@@ -46,50 +47,29 @@
       <thead>
         <tr>
           <th>Order</th>
+          <th>Customer</th>
           <th>Status</th>
           <th>Items</th>
           <th>Time</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Order #1023</td>
-          <td>Pending</td>
-          <td>3 Items</td>
-          <td>Today, 10:12</td>
+        <tr *ngIf="recentOrders?.length === 0">
+          <td class="no-results" colspan="5">No recent orders</td>
         </tr>
-        <tr>
-          <td>Order #1022</td>
-          <td>Shipped</td>
-          <td>5 Items</td>
-          <td>Yesterday, 16:45</td>
-        </tr>
-        <tr>
-          <td>Order #1021</td>
-          <td>Delivered</td>
-          <td>2 Items</td>
-          <td>Yesterday, 09:30</td>
+        <tr *ngFor="let order of recentOrders">
+          <td>Order #{{ order.orderId }}</td>
+          <td>{{ order.customerName }}</td>
+          <td>{{ order.status }}</td>
+          <td>{{ order.itemsCount || (order.items?.length || 0) }} Items</td>
+          <td>{{ order.orderDate | date:'short' }}</td>
         </tr>
       </tbody>
     </table>
   </div>
-
-  <!-- Activity Log -->
-  <div class="activity-log">
-    <h3>Activity Log</h3>
-    <ul>
-      <li>
-        <span class="log-text">Stock updated <strong>Shirts: 120 → 110</strong></span>
-        <span class="log-meta">By: Alex Morgan · 2 min ago</span>
-      </li>
-      <li>
-        <span class="log-text">Order shipped <strong>Order #1022</strong></span>
-        <span class="log-meta">By: Jamie Lee · 10 min ago</span>
-      </li>
-      <li>
-        <span class="log-text">Product added <strong>New: Gloves</strong></span>
-        <span class="log-meta">By: Alex Morgan · 30 min ago</span>
-      </li>
-    </ul>
-  </div>
 </div>
+
+<!-- show modal when requested -->
+<app-modal *ngIf="showModal" [title]="modalTitle" [fields]="modalFields" [readonly]="true" [submitLabel]="modalSubmitLabel"
+  (submit)="onModalSubmit($event)" (close)="closeModal()">
+</app-modal>
