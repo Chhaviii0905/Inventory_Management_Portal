@@ -41,7 +41,7 @@ export class SignupComponent implements OnInit {
             icon: 'error',
             showCancelButton: false,
             confirmButtonText: 'OK',
-            confirmButtonColor: '#035fc1',
+            confirmButtonColor: '#c1032fff',
           });
         }
       });

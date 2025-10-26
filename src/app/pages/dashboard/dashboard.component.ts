@@ -140,7 +140,7 @@ export class DashboardComponent implements OnInit {
         icon: 'error',
         showCancelButton: false,
         confirmButtonText: 'OK',
-        confirmButtonColor: '#035fc1',
+        confirmButtonColor: '#c1032fff',
       });
       this.recentOrders = [];
       this.pendingOrders = [];

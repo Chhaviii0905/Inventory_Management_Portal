@@ -21,7 +21,7 @@ export class UsersComponent implements OnInit {
   isApiCalled: boolean = false;
   currentUser!: User;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.loadUsers();
@@ -65,31 +65,68 @@ export class UsersComponent implements OnInit {
   }
 
   handleModalSubmit(data: any) {
-    if (!this.isApiCalled && this.isEditing && this.editingUserId !== null) {
+    if (this.isApiCalled) return; // prevent multiple submissions
+
+    if (this.isEditing && this.editingUserId !== null) {
+      // Update user
       const updatePayload = {
         userId: this.editingUserId,
         username: data.username,
         password: data.password,
         roleId: this.getRoleId(data.role)
       };
-      this.userService.updateUser(this.editingUserId, updatePayload).subscribe(() => {
-        this.loadUsers();
-        this.showModal = false;
+
+      this.userService.updateUser(this.editingUserId, updatePayload).subscribe({
+        next: () => {
+          this.loadUsers();
+          this.showModal = false;
+          Swal.fire({
+            title: 'User updated successfully!',
+            icon: 'success',
+            confirmButtonColor: '#035fc1'
+          });
+        },
+        error: (err) => {
+          Swal.fire({
+            title: 'Error updating user',
+            text: err.message || 'Something went wrong',
+            icon: 'error',
+            confirmButtonColor: '#c1032fff'
+          });
+        }
       });
-      this.isApiCalled = true;
-    } else if(!this.isApiCalled) {
+    } else {
+      // Create user
       const createPayload = {
         username: data.username,
         password: data.password,
         roleId: this.getRoleId(data.role)
       };
-      this.userService.createUser(createPayload).subscribe(() => {
-        this.loadUsers();
-        this.showModal = false;
+
+      this.userService.createUser(createPayload).subscribe({
+        next: () => {
+          this.loadUsers();
+          this.showModal = false;
+          Swal.fire({
+            title: 'User created successfully!',
+            icon: 'success',
+            confirmButtonColor: '#035fc1'
+          });
+        },
+        error: (err) => {
+          Swal.fire({
+            title: 'Error creating user',
+            text: err.message || 'Something went wrong',
+            icon: 'error',
+            confirmButtonColor: '#c1032fff'
+          });
+        }
       });
-      this.isApiCalled = true;
     }
+
+    this.isApiCalled = true; // prevent double submission
   }
+
 
   deleteUser(id: number): void {
     Swal.fire({
@@ -100,10 +137,26 @@ export class UsersComponent implements OnInit {
       confirmButtonColor: '#035fc1',
       cancelButtonText: 'Cancel'
     }).then((result) => {
-        if (result.isConfirmed) {
-          this.userService.deleteUser(id).subscribe(() => {
-          this.users = this.users.filter(u => u.id !== id);
-          this.totalActiveUsers = this.users.length;
+      if (result.isConfirmed) {
+        this.userService.deleteUser(id).subscribe({
+          next: () => {
+            this.users = this.users.filter(u => u.id !== id);
+            this.totalActiveUsers = this.users.length;
+
+            Swal.fire({
+              title: 'User deleted successfully',
+              icon: 'success',
+              confirmButtonColor: '#035fc1'
+            });
+          },
+          error: (err) => {
+            Swal.fire({
+              title: 'Error deleting user',
+              text: err.message || 'Something went wrong',
+              icon: 'error',
+              confirmButtonColor: '#c1032fff'
+            });
+          }
         });
       }
     });
