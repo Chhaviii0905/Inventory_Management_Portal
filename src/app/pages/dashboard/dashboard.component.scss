@@ -41,7 +41,8 @@
         margin: 5px 0;
       }
 
-      .count, .note {
+      .count,
+      .note {
         font-size: 14px;
         color: #888;
         margin-bottom: 12px;
@@ -75,26 +76,58 @@
     border-radius: 12px;
     margin-top: 30px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  }
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
 
-    th, td {
-      text-align: left;
-      padding: 10px 12px;
-      font-size: 14px;
-      border-bottom: 1px solid #e0e0e0;
-    }
+      thead {
+        background-color: #f9f9f9;
+        position: sticky;
+        top: 0;
+        z-index: 1;
+      }
 
-    th {
-      color: #555;
-    }
+      tbody {
+        display: block;
+        max-height: 300px; // fixed height
+        overflow-y: auto;
+      }
 
-    td {
-      color: #333;
+      thead tr,
+      tbody tr {
+        display: table;
+        width: 100%;
+        table-layout: fixed; // ensures proper alignment
+      }
+
+      th,
+      td {
+        text-align: left;
+        padding: 10px 12px;
+        font-size: 14px;
+        border-bottom: 1px solid #e0e0e0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      th {
+        color: #555;
+      }
+
+      td {
+        color: #333;
+      }
+
+      .no-results {
+        text-align: center;
+        font-size: 1rem;
+        color: #888;
+        margin-top: 1rem;
+        font-style: italic;
+      }
     }
   }
 
@@ -130,6 +163,7 @@
 @media (max-width: 768px) {
   .overview-cards {
     flex-direction: column;
+
     .card {
       width: 100%;
     }

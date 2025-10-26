@@ -5,7 +5,7 @@
   </div>
 
   <div class="login-right">
-    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" (keydown.enter)="onLogin()">
       <h2>Sign in to your account</h2>
 
       <div class="form-group">

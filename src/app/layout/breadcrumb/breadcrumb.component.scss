@@ -3,6 +3,10 @@
   padding: 10px 20px;
   background-color: #f5f5f5;
   color: #444;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
 }
 
 .crumb {
@@ -10,5 +14,27 @@
   text-transform: capitalize;
   color: #035fc1;
   cursor: pointer;
-  font-size: medium;
+  font-size: 16px;
+  white-space: nowrap; 
+}
+
+
+@media (max-width: 768px) {
+  .breadcrumb-wrapper {
+    padding-top: 22px;
+  }
+
+  .crumb {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .breadcrumb-wrapper {
+    padding: 20px;
+  }
+
+  .crumb {
+    font-size: 16px;
+  }
 }

@@ -1,12 +1,10 @@
 <div class="signup-container">
   <div class="signup-left">
-    <!-- <p class="logo">StorEase</p>
-    <p class="subtitle">Smarter Storage, Easier Management</p> -->
     <img src="assets/images/logo.png" alt="StorEase Logo" class="logo" />
   </div>
 
   <div class="signup-right">
-    <form [formGroup]="signupForm" (ngSubmit)="onSignup()">
+    <form [formGroup]="signupForm" (ngSubmit)="onSignup()" (keydown.enter)="onSignup()">
       <h2>Create an account</h2>
 
       <div class="form-group">
@@ -31,7 +29,7 @@
       <button type="submit">Sign up</button>
 
       <p class="form-note">
-        Already have an account? <a routerLink="/signup">Sign in</a>
+        Already have an account? <a routerLink="/login">Sign in</a>
       </p>
     </form>
   </div>

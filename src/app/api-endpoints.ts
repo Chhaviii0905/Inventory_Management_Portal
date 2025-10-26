@@ -14,4 +14,10 @@ export const API_ENDPOINTS = {
   createUser: `${environment.apiUrl}/User`,
   deleteUser: (id: number | string) => `${environment.apiUrl}/User/${id}`,
   activityLogs: `${environment.apiUrl}/ActivityLog`,
+  getOrders: `${environment.apiUrl}/Order`,
+  orderById: (id: number | string) => `${environment.apiUrl}/Order/${id}`,
+  createOrder: `${environment.apiUrl}/Order`,
+  getRecentOrders: `${environment.apiUrl}/Order/getRecentOrders`,
+  updateOrderStatus: (id: number | string) => `${environment.apiUrl}/Order/${id}/status`,
+  getCurrentUser: `${environment.apiUrl}/User/getCurrentUser`,
 };

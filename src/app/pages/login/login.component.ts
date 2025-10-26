@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -28,7 +28,13 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['/dashboard']); // or desired route
         },
         error: (err) => {
-          Swal.fire('', 'Login failed: Invalid credentials', 'error');
+          Swal.fire({
+            title: 'Login failed, invalid credentials',
+            icon: 'error',
+            showCancelButton: false,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#035fc1',
+          });
         }
       });
     }

@@ -19,6 +19,7 @@ export class UsersComponent implements OnInit {
   isEditing = false;
   editingUserId: number | null = null;
   isApiCalled: boolean = false;
+  currentUser!: User;
 
   constructor(private userService: UserService) {}
 

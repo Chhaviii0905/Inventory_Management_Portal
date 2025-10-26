@@ -7,6 +7,11 @@ import Swal from 'sweetalert2';
   styleUrl: './sidebar.component.scss'
 })
 export class SidebarComponent {
+  sidebarOpen = false;
+
+  toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+  }
 
   logout() {
     Swal.fire({

@@ -1,36 +1,64 @@
 <div class="settings-page">
-  <h2>Settings</h2>
+  <h2 class="page-title">Settings</h2>
 
   <nav class="tab-menu">
-    <span class="tab" [class.active]="activeTab === 'general'" (click)="setTab('general')">General</span>
-    <span class="tab" [class.active]="activeTab === 'users'" (click)="setTab('users')">Users</span>
-    <span class="tab" [class.active]="activeTab === 'notifications'" (click)="setTab('notifications')">Notifications</span>
-    <span class="tab" [class.active]="activeTab === 'integrations'" (click)="setTab('integrations')">Integrations</span>
+    <span 
+      class="tab" 
+      [class.active]="activeTab === 'general'" 
+      (click)="setTab('general')">General</span>
+    <span 
+      class="tab" 
+      [class.active]="activeTab === 'user'" 
+      (click)="setTab('user')">User Details</span>
   </nav>
 
+  <!-- General Settings Tab -->
   <div class="tab-content" *ngIf="activeTab === 'general'">
-    <h3>General Settings</h3>
-    <form (ngSubmit)="saveChanges()" #settingsForm="ngForm">
-      <div class="form-group">
-        <label>Company Name</label>
-        <input type="text" class="form-control" [(ngModel)]="settings.companyName" name="companyName" readonly />
-      </div>
+    <div class="card">
+      <h3 class="section-title">General Settings</h3>
+      <form (ngSubmit)="saveChanges()" #settingsForm="ngForm">
+        <div class="form-group">
+          <label class="label-field">Company Name</label>
+          <input type="text" class="form-control" [(ngModel)]="settings.companyName" name="companyName" readonly />
+        </div>
 
-      <div class="form-group">
-        <label>Support Email</label>
-        <input type="email" class="form-control" [(ngModel)]="settings.supportEmail" name="supportEmail" readonly />
-      </div>
+        <div class="form-group">
+          <label class="label-field">Support Email</label>
+          <input type="email" class="form-control" [(ngModel)]="settings.supportEmail" name="supportEmail" readonly />
+        </div>
 
-      <div class="form-group">
-        <label>Default Currency</label>
-        <input type="text" class="form-control" [(ngModel)]="settings.defaultCurrency" name="defaultCurrency" readonly />
-      </div>
+        <div class="form-group">
+          <label class="label-field">Default Currency</label>
+          <input type="text" class="form-control" [(ngModel)]="settings.defaultCurrency" name="defaultCurrency" readonly />
+        </div>
 
-      <button type="submit" class="btn-save">Save Changes</button>
-    </form>
+        <div class="actions">
+          <button type="submit" class="btn-save" disabled>Save Changes</button>
+        </div>
+      </form>
+    </div>
   </div>
 
-  <div class="tab-content" *ngIf="activeTab !== 'general'">
-    <p>{{ activeTab | titlecase }} settings are under development.</p>
+  <!-- User Tab -->
+  <div class="tab-content" *ngIf="activeTab === 'user'">
+    <div class="card" *ngIf="currentUser; else noUser">
+      <h3 class="section-title">Current User</h3>
+
+      <div class="form-group">
+        <label class="label-field">Username</label>
+        <input type="text" class="form-control" [value]="currentUser.name" readonly>
+      </div>
+
+      <div class="form-group">
+        <label class="label-field">Role ID</label>
+        <input type="text" class="form-control" [value]="currentUser.role" readonly>
+      </div>
+    </div>
+
+    <ng-template #noUser>
+      <div class="card empty-state">
+        <p>No user information available.</p>
+      </div>
+    </ng-template>
   </div>
 </div>

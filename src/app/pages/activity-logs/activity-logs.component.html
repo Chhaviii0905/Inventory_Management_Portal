@@ -3,21 +3,14 @@
 
   <div class="summary-cards">
     <div class="card">
-      <div class="card-icon">📅</div>
+      <div class="card-icon"><i class="fas fa-calendar-day"></i></div>
       <div>
         <strong>Today</strong>
         <p>{{ todayCount}} Events<br /></p>
       </div>
     </div>
     <div class="card">
-      <div class="card-icon">❗</div>
-      <div>
-        <strong>Errors</strong>
-        <p>2 Issues<br /><small>Needs review</small></p>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-icon">👤</div>
+      <div class="card-icon"><i class="fas fa-users"></i></div>
       <div>
         <strong>Users</strong>
         <p>5 Logins<br /><small>Last 24h</small></p>
@@ -30,9 +23,6 @@
       <h3>Activity Log</h3>
       <div class="filters">
         <span [class.active]="filter === 'all'" (click)="setFilter('all')">All</span>
-        <span [class.active]="filter === 'errors'" (click)="setFilter('errors')">Errors</span>
-        <span [class.active]="filter === 'user'" (click)="setFilter('user')">User Actions</span>
-        <span [class.active]="filter === 'system'" (click)="setFilter('system')">System</span>
       </div>
     </div>
 
@@ -44,20 +34,29 @@
           <th>Activity</th>
           <th>User</th>
           <th>Type</th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
+        <tr *ngIf="filteredLogs.length === 0">
+          <td colspan="5" class="no-results">
+            No logs available.
+          </td>
+        </tr>
         <tr *ngFor="let log of filteredLogs">
           <td>{{ log.timestamp | date:'dd/MM/yyyy' }}</td>
           <td>{{ log.timestamp | date: 'hh:mm:ss a' }}</td>
           <td>{{ log.action }}</td>
           <td>{{ log.performedBy }}</td>
-          <td>{{ log.entity }}</td>
-          <td><span class="eye-icon">👁️</span></td>
+          <td style="text-align: left;">{{ log.entity }}</td>
         </tr>
       </tbody>
 
     </table>
+
+    <ng-template #noLogs>
+      <div class="no-results">
+        <p>No logs available.</p>
+      </div>
+    </ng-template>
   </div>
 </div>

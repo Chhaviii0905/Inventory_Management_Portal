@@ -12,7 +12,7 @@ import Swal from 'sweetalert2';
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) {}
+  constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
@@ -26,11 +26,23 @@ export class SignupComponent implements OnInit {
     if (this.signupForm.valid) {
       this.auth.register(this.signupForm.value).subscribe({
         next: () => {
-          Swal.fire('', 'Account created! You can login now', 'success');
+          Swal.fire({
+            title: 'Account created, you can login now',
+            icon: 'success',
+            showCancelButton: false,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#035fc1',
+          });
           this.router.navigate(['/login']);
         },
         error: () => {
-          Swal.fire('', 'Signup failed. Try again', 'error');
+          Swal.fire({
+            title: 'Signup failed. Try again',
+            icon: 'error',
+            showCancelButton: false,
+            confirmButtonText: 'OK',
+            confirmButtonColor: '#035fc1',
+          });
         }
       });
     }

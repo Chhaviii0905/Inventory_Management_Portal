@@ -38,6 +38,20 @@ export class UserService {
     return this.http.delete<void>(API_ENDPOINTS.deleteUser(id));
   }
 
+  getCurrentUser(): Observable<User> {
+    return this.http.get<{data: RawUser}>(API_ENDPOINTS.getCurrentUser).pipe(
+      map(response => {
+        const user = response.data; 
+        return {
+          id: user.userId,
+          name: user.username,
+          role: this.mapRole(user.roleId),
+          status: 'Active',
+        };
+      })
+    );
+  }
+
   private mapRole(roleId: number): 'Admin' | 'Manager' | 'Staff' {
     switch (roleId) {
       case 1:

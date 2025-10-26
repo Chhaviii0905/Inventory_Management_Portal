@@ -1,118 +1,92 @@
 <div class="orders-container">
   <!-- Header -->
   <div class="page-header">
-    <h1>Orders</h1>
+    <h2>Orders</h2>
   </div>
 
   <!-- Summary Cards -->
   <div class="summary-cards">
     <div class="card">
-      <div class="icon">📦</div>
+      <div class="icon"><i class="fas fa-boxes-stacked"></i></div>
       <div>
         <h4>Total</h4>
-        <p class="count">124 Orders</p>
+        <p class="count">{{ totalOrders }} Orders</p>
         <p class="note">All time</p>
       </div>
     </div>
     <div class="card">
-      <div class="icon">⏳</div>
+      <div class="icon"><i class="fas fa-hourglass-half"></i></div>
       <div>
         <h4>Pending</h4>
-        <p class="count">7 Orders</p>
+        <p class="count">{{ pendingOrders }} Orders</p>
         <p class="note">Awaiting fulfillment</p>
       </div>
     </div>
     <div class="card">
-      <div class="icon">✅</div>
+      <div class="icon"><i class="fas fa-circle-check"></i></div>
       <div>
         <h4>Completed</h4>
-        <p class="count">110 Orders</p>
+        <p class="count">{{ completedOrders }} Orders</p>
         <p class="note">Delivered</p>
       </div>
     </div>
   </div>
 
-  <!-- Order List -->
-  <div class="order-list-section">
+  <!-- Tabs and Create Button -->
+  <div class="tabs-header">
     <div class="tabs">
-      <button class="active">All</button>
-      <button>Pending</button>
-      <button>Shipped</button>
-      <button>Completed</button>
-      <button>Cancelled</button>
+      <button (click)="setFilter('all')" [class.active]="currentFilter==='all'">All</button>
+      <button (click)="setFilter('pending')" [class.active]="currentFilter==='pending'">Pending</button>
+      <button (click)="setFilter('shipped')" [class.active]="currentFilter==='shipped'">Shipped</button>
+      <button (click)="setFilter('completed')" [class.active]="currentFilter==='completed'">Completed</button>
+      <button (click)="setFilter('cancelled')" [class.active]="currentFilter==='cancelled'">Cancelled</button>
     </div>
+    <button class="btn-primary" (click)="openAddOrderModal()">Create Order</button>
+  </div>
 
+  <!-- Orders Table -->
+  <div class="order-table-container">
     <table class="order-table">
       <thead>
         <tr>
           <th>Order</th>
           <th>Customer</th>
           <th>Date</th>
-          <th>Amount</th>
+          <th>Rate</th>
+          <th>Total Amount</th>
+          <th>Items</th>
           <th>Status</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>#1024</td>
-          <td>Jamie Lee</td>
-          <td>2024-06-15</td>
-          <td>$320.00</td>
-          <td>Pending</td>
-          <td><button>👁️</button></td>
+        <tr *ngIf="filteredOrders.length === 0" class="no-results-row">
+          <td colspan="8" class="no-results">
+            No {{ currentFilter | titlecase }} Orders found.
+          </td>
         </tr>
-        <tr>
-          <td>#1023</td>
-          <td>Morgan Yu</td>
-          <td>2024-06-14</td>
-          <td>$150.00</td>
-          <td>Completed</td>
-          <td><button>👁️</button></td>
-        </tr>
-        <tr>
-          <td>#1022</td>
-          <td>Taylor Kim</td>
-          <td>2024-06-13</td>
-          <td>$89.00</td>
-          <td>Shipped</td>
-          <td><button>👁️</button></td>
-        </tr>
-        <tr>
-          <td>#1021</td>
-          <td>Jordan Smith</td>
-          <td>2024-06-12</td>
-          <td>$210.00</td>
-          <td>Cancelled</td>
-          <td><button>👁️</button></td>
+        <tr *ngFor="let order of filteredOrders">
+          <td data-label="Order">#{{ order.orderId }}</td>
+          <td data-label="Customer">{{ order.customerName }}</td>
+          <td data-label="Date">{{ order.orderDate | date:'dd-MM-yyyy' }}</td>
+          <td data-label="Rate">{{ order.items[0]?.rate }}</td>
+          <td data-label="Total Amount">{{ order.items[0]?.totalAmount }}</td>
+          <td data-label="Items">{{ order.items[0]?.quantity }}</td>
+          <td data-label="Status">{{ order.status }}</td>
+          <td>
+            <select [(ngModel)]="order.status" (change)="updateStatus(order.orderId, order.status)">
+              <option value="Pending">Pending</option>
+              <option value="Shipped">Shipped</option>
+              <option value="Completed">Completed</option>
+              <option value="Cancelled">Cancelled</option>
+            </select>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
 
-  <!-- Create Order Form -->
-  <div class="create-order-section">
-    <h3>Create Order</h3>
-    <form>
-      <div class="form-group">
-        <label>Customer</label>
-        <input type="text" placeholder="Enter customer name" />
-      </div>
-      <div class="form-group">
-        <label>Order Amount</label>
-        <input type="number" placeholder="Enter amount" />
-      </div>
-      <div class="form-group">
-        <label>Status</label>
-        <select>
-          <option value="">Select status</option>
-          <option value="pending">Pending</option>
-          <option value="shipped">Shipped</option>
-          <option value="completed">Completed</option>
-          <option value="cancelled">Cancelled</option>
-        </select>
-      </div>
-      <button type="submit" class="btn-primary">Add Order</button>
-    </form>
-  </div>
+  <!-- Order Modal -->
+  <app-modal *ngIf="showModal" [title]="modalTitle" [fields]="modalFields" [submitLabel]="modalSubmitLabel"
+    (submit)="handleModalSubmit($event)" (close)="handleModalClose()"></app-modal>
 </div>
