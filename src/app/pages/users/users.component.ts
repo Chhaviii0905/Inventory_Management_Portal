@@ -89,7 +89,7 @@ export class UsersComponent implements OnInit {
         error: (err) => {
           Swal.fire({
             title: 'Error updating user',
-            text: err.message || 'Something went wrong',
+            text: 'Something went wrong',
             icon: 'error',
             confirmButtonColor: '#c1032fff'
           });
@@ -152,7 +152,7 @@ export class UsersComponent implements OnInit {
           error: (err) => {
             Swal.fire({
               title: 'Error deleting user',
-              text: err.message || 'Something went wrong',
+              text: 'Something went wrong',
               icon: 'error',
               confirmButtonColor: '#c1032fff'
             });
