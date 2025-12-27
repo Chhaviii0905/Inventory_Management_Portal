@@ -11,18 +11,20 @@ import Swal from 'sweetalert2';
 })
 export class SignupComponent implements OnInit {
   signupForm!: FormGroup;
+  submitted: boolean = false;
 
   constructor(private fb: FormBuilder, private auth: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.signupForm = this.fb.group({
       username: ['', Validators.required],
-      password: ['', Validators.required],
-      roleId: [2]
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      roleId: [2, Validators.required]
     });
   }
 
   onSignup(): void {
+    this.submitted = true;
     if (this.signupForm.valid) {
       this.auth.register(this.signupForm.value).subscribe({
         next: () => {

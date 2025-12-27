@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.auth.login(this.loginForm.value).subscribe({
         next: (res) => {
-          this.router.navigate(['/dashboard']); // or desired route
+          this.router.navigate(['/dashboard']);
         },
         error: (err) => {
           Swal.fire({
