@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { EditUser, NewUser, RawUser, User } from '../model';
-import { environment } from '../../environment';
 import { API_ENDPOINTS } from '../api-endpoints';
 
 @Injectable({
